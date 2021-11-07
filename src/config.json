@@ -1,0 +1,390 @@
+{
+  "name": "AWS-CodeCommit",
+  "type": "executer",
+  "imgUrl": "logo.png",
+  "execProgram": "node",
+  "main": "app.js",
+  "version": "1.0.0",
+  "description": "Integration with AWS CodeCommit API.",
+  "category": "CI-CD",
+  "keywords": ["aws", "amazon", "code", "cloud", "cluster", "vm", "cli", "instance", "service"],
+  "settings": [
+    {
+      "name": "accessKeyId",
+      "viewName": "Access key",
+      "type": "string",
+      "description": "The default Access Key ID to use to authenticate to AWS.",
+      "placeholder": "AKIAIOSFODNN7EXAMPLE",
+      "learnUrl": "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html#Using_CreateAccessKey"
+    },
+    {
+      "name": "secretAccessKey",
+      "viewName": "Secret key",
+      "type": "vault",
+      "description": "The default Access Key Secret to use to authenticate to AWS.",
+      "placeholder": "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY",
+      "learnUrl": "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html#Using_CreateAccessKey"
+    },
+    {
+      "name": "region",
+      "viewName": "Region",
+      "type": "string",
+      "description": "The default AWS region to make requests on.",
+      "placeholder": "us-east-2",
+      "learnUrl": "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html"
+    }
+  ],
+  "methods": [
+    {
+      "name": "createRepository",
+      "viewName": "Create Repository",
+      "params": [
+        {
+          "name": "accessKeyId",
+          "viewName": "Access key",
+          "type": "string",
+          "description": "The Access Key ID to use to authenticate to AWS for this request.",
+          "placeholder": "AKIAIOSFODNN7EXAMPLE",
+          "learnUrl": "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html#Using_CreateAccessKey"
+        },
+        {
+          "name": "secretAccessKey",
+          "viewName": "Secret key",
+          "type": "vault",
+          "description": "The Access Key Secret to use to authenticate to AWS for this request.",
+          "placeholder": "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY",
+          "learnUrl": "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html#Using_CreateAccessKey"
+        },
+        {
+          "name": "region",
+          "viewName": "Region",
+          "type": "autocomplete",
+          "autocompleteType": "function",
+          "functionName": "listRegionsAuto",
+          "description": "The AWS region to make this request on.",
+          "placeholder": "us-east-2",
+          "learnUrl": "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html"
+        },
+        {
+          "name": "name",
+          "viewName": "Name",
+          "type": "string",
+          "description": "The name of the new repository to create.",
+          "placeholder": "your-repo-name",
+          "learnUrl": "https://docs.aws.amazon.com/codecommit/latest/userguide/how-to-create-repository.html"
+        },
+        {
+          "name": "description",
+          "viewName": "Description",
+          "type": "text",
+          "description": "A description of the new repository to create.",
+          "placeholder": "This repository contains the source code for my application.",
+          "learnUrl": "https://docs.aws.amazon.com/codecommit/latest/userguide/how-to-create-repository.html"
+        },
+        {
+          "name": "tags",
+          "viewName": "Tags",
+          "type": "text",
+          "description": "If specified, tag the repository with the tags specified. Each tag should just be a key with no value. To enter multiple values separate each with a new line. Also accepts getting an array of strings from code.",
+          "placeholder": "DEV_APPS\nKAHOLO_PLUGINS",
+          "learnUrl": "https://docs.aws.amazon.com/codecommit/latest/userguide/how-to-tag-repository.html"
+        }
+      ]
+    },
+    {
+      "name": "createBranch",
+      "viewName": "Create Branch",
+      "params": [
+        {
+          "name": "accessKeyId",
+          "viewName": "Access key",
+          "type": "string",
+          "description": "The Access Key ID to use to authenticate to AWS for this request.",
+          "placeholder": "AKIAIOSFODNN7EXAMPLE",
+          "learnUrl": "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html#Using_CreateAccessKey"
+        },
+        {
+          "name": "secretAccessKey",
+          "viewName": "Secret key",
+          "type": "vault",
+          "description": "The Access Key Secret to use to authenticate to AWS for this request.",
+          "placeholder": "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY",
+          "learnUrl": "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html#Using_CreateAccessKey"
+        },
+        {
+          "name": "region",
+          "viewName": "Region",
+          "type": "autocomplete",
+          "autocompleteType": "function",
+          "functionName": "listRegionsAuto",
+          "description": "The AWS region to make this request on.",
+          "placeholder": "us-east-2",
+          "learnUrl": "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html"
+        },
+        {
+          "name": "name",
+          "viewName": "Name",
+          "type": "string",
+          "description": "The name of the new branch to create.",
+          "placeholder": "develop",
+          "learnUrl": "https://docs.aws.amazon.com/codecommit/latest/userguide/how-to-create-branch.html"
+        },
+        {
+          "name": "repository",
+          "viewName": "Repository",
+          "type": "autocomplete",
+          "autocompleteType": "function",
+          "functionName": "listReposAuto",
+          "description": "Create the branch in the specified repository.",
+          "learnUrl": "https://docs.aws.amazon.com/codecommit/latest/userguide/how-to-create-repository.html"
+        },
+        {
+          "name": "commit",
+          "viewName": "Head Commit SHA ID",
+          "type": "string",
+          "description": "The SHA ID of the commit the new branch will point to.",
+          "learnUrl": "https://docs.aws.amazon.com/codecommit/latest/userguide/how-to-create-commit.html"
+        }
+      ]
+    },
+    {
+      "name": "createPullRequest",
+      "viewName": "Create Pull Request",
+      "params": [
+        {
+          "name": "accessKeyId",
+          "viewName": "Access key",
+          "type": "string",
+          "description": "The Access Key ID to use to authenticate to AWS for this request.",
+          "placeholder": "AKIAIOSFODNN7EXAMPLE",
+          "learnUrl": "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html#Using_CreateAccessKey"
+        },
+        {
+          "name": "secretAccessKey",
+          "viewName": "Secret key",
+          "type": "vault",
+          "description": "The Access Key Secret to use to authenticate to AWS for this request.",
+          "placeholder": "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY",
+          "learnUrl": "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html#Using_CreateAccessKey"
+        },
+        {
+          "name": "region",
+          "viewName": "Region",
+          "type": "autocomplete",
+          "autocompleteType": "function",
+          "functionName": "listRegionsAuto",
+          "description": "The AWS region to make this request on.",
+          "placeholder": "us-east-2",
+          "learnUrl": "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html"
+        },
+        {
+          "name": "title",
+          "viewName": "Title",
+          "type": "string",
+          "description": "The title of the new pull request to create.",
+          "placeholder": "develop",
+          "learnUrl": "https://docs.aws.amazon.com/codecommit/latest/userguide/pull-requests.html"
+        },
+        {
+          "name": "repository",
+          "viewName": "Repository",
+          "type": "autocomplete",
+          "autocompleteType": "function",
+          "functionName": "listReposAuto",
+          "description": "Create the pull request in the specified repository.",
+          "learnUrl": "https://docs.aws.amazon.com/codecommit/latest/userguide/how-to-create-repository.html"
+        },
+        {
+          "name": "sourceBranch",
+          "viewName": "Source Branch",
+          "type": "autocomplete",
+          "autocompleteType": "function",
+          "functionName": "listBranchesAuto",
+          "description": "The branch to request to pull/merge into the target branch.",
+          "learnUrl": "https://docs.aws.amazon.com/codecommit/latest/userguide/pull-requests.html"
+        },
+        {
+          "name": "targetBranch",
+          "viewName": "Target Branch",
+          "type": "autocomplete",
+          "autocompleteType": "function",
+          "functionName": "listBranchesAuto",
+          "description": "If pull request approved pull/merge the source branch with this branch.",
+          "learnUrl": "https://docs.aws.amazon.com/codecommit/latest/userguide/pull-requests.html"
+        },
+        {
+          "name": "description",
+          "viewName": "Description",
+          "type": "text",
+          "description": "Attach the specified description to the pull request.",
+          "placeholder": "Made changes to:\n1.Test Class\n2.Something else",
+          "learnUrl": "https://docs.aws.amazon.com/codecommit/latest/userguide/pull-requests.html"
+        }
+      ]
+    },
+    {
+      "name": "getPullRequest",
+      "viewName": "Get Pull Request",
+      "params": [
+        {
+          "name": "accessKeyId",
+          "viewName": "Access key",
+          "type": "string",
+          "description": "The Access Key ID to use to authenticate to AWS for this request.",
+          "placeholder": "AKIAIOSFODNN7EXAMPLE",
+          "learnUrl": "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html#Using_CreateAccessKey"
+        },
+        {
+          "name": "secretAccessKey",
+          "viewName": "Secret key",
+          "type": "vault",
+          "description": "The Access Key Secret to use to authenticate to AWS for this request.",
+          "placeholder": "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY",
+          "learnUrl": "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html#Using_CreateAccessKey"
+        },
+        {
+          "name": "region",
+          "viewName": "Region",
+          "type": "autocomplete",
+          "autocompleteType": "function",
+          "functionName": "listRegionsAuto",
+          "description": "The AWS region to make this request on.",
+          "placeholder": "us-east-2",
+          "learnUrl": "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html"
+        },
+        {
+          "name": "repository",
+          "viewName": "Repository",
+          "type": "autocomplete",
+          "autocompleteType": "function",
+          "functionName": "listReposAuto",
+          "description": "The repository the pull request belongs to.",
+          "learnUrl": "https://docs.aws.amazon.com/codecommit/latest/userguide/how-to-create-repository.html"
+        },
+        {
+          "name": "pullRequest",
+          "viewName": "Pull Request",
+          "type": "autocomplete",
+          "autocompleteType": "function",
+          "functionName": "listPullRequestsAuto",
+          "description": "The pull request to return information about",
+          "learnUrl": "https://docs.aws.amazon.com/codecommit/latest/userguide/pull-requests.html"
+        }
+      ]
+    },
+    {
+      "name": "listRepos",
+      "viewName": "List Repositories",
+      "params": [
+        {
+          "name": "accessKeyId",
+          "viewName": "Access key",
+          "type": "string",
+          "description": "The Access Key ID to use to authenticate to AWS for this request.",
+          "placeholder": "AKIAIOSFODNN7EXAMPLE",
+          "learnUrl": "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html#Using_CreateAccessKey"
+        },
+        {
+          "name": "secretAccessKey",
+          "viewName": "Secret key",
+          "type": "vault",
+          "description": "The Access Key Secret to use to authenticate to AWS for this request.",
+          "placeholder": "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY",
+          "learnUrl": "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html#Using_CreateAccessKey"
+        },
+        {
+          "name": "region",
+          "viewName": "Region",
+          "type": "autocomplete",
+          "autocompleteType": "function",
+          "functionName": "listRegionsAuto",
+          "description": "The AWS region to make this request on.",
+          "placeholder": "us-east-2",
+          "learnUrl": "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html"
+        }
+      ]
+    },
+    {
+      "name": "listBranches",
+      "viewName": "List Branches",
+      "params": [
+        {
+          "name": "accessKeyId",
+          "viewName": "Access key",
+          "type": "string",
+          "description": "The Access Key ID to use to authenticate to AWS for this request.",
+          "placeholder": "AKIAIOSFODNN7EXAMPLE",
+          "learnUrl": "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html#Using_CreateAccessKey"
+        },
+        {
+          "name": "secretAccessKey",
+          "viewName": "Secret key",
+          "type": "vault",
+          "description": "The Access Key Secret to use to authenticate to AWS for this request.",
+          "placeholder": "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY",
+          "learnUrl": "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html#Using_CreateAccessKey"
+        },
+        {
+          "name": "region",
+          "viewName": "Region",
+          "type": "autocomplete",
+          "autocompleteType": "function",
+          "functionName": "listRegionsAuto",
+          "description": "The AWS region to make this request on.",
+          "placeholder": "us-east-2",
+          "learnUrl": "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html"
+        },
+        {
+          "name": "repository",
+          "viewName": "Repository",
+          "type": "autocomplete",
+          "autocompleteType": "function",
+          "functionName": "listReposAuto",
+          "description": "List branches of only the specified repository.",
+          "learnUrl": "https://docs.aws.amazon.com/codecommit/latest/userguide/how-to-create-repository.html"
+        }
+      ]
+    },
+    {
+      "name": "listPullRequests",
+      "viewName": "List Pull Requests",
+      "params": [
+        {
+          "name": "accessKeyId",
+          "viewName": "Access key",
+          "type": "string",
+          "description": "The Access Key ID to use to authenticate to AWS for this request.",
+          "placeholder": "AKIAIOSFODNN7EXAMPLE",
+          "learnUrl": "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html#Using_CreateAccessKey"
+        },
+        {
+          "name": "secretAccessKey",
+          "viewName": "Secret key",
+          "type": "vault",
+          "description": "The Access Key Secret to use to authenticate to AWS for this request.",
+          "placeholder": "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY",
+          "learnUrl": "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html#Using_CreateAccessKey"
+        },
+        {
+          "name": "region",
+          "viewName": "Region",
+          "type": "autocomplete",
+          "autocompleteType": "function",
+          "functionName": "listRegionsAuto",
+          "description": "The AWS region to make this request on.",
+          "placeholder": "us-east-2",
+          "learnUrl": "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html"
+        },
+        {
+          "name": "repository",
+          "viewName": "Repository",
+          "type": "autocomplete",
+          "autocompleteType": "function",
+          "functionName": "listReposAuto",
+          "description": "List pull requests of only the specified repository.",
+          "learnUrl": "https://docs.aws.amazon.com/codecommit/latest/userguide/how-to-create-repository.html"
+        }
+      ]
+    }
+  ]
+}
