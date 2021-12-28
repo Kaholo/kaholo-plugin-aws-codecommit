@@ -39,14 +39,6 @@ module.exports = {
             return value.split('\n');
         return undefined;
     },
-    environmentVariables : (value)=>{
-        const parsedEnvironmentVariables = module.exports.text(value);
-        return !parsedEnvironmentVariables ? undefined : parsedEnvironmentVariables.reduce((obj, rawVariable)=>{
-            const [key, value] = rawVariable.split(':');
-            obj[key.trim()] = value.trim();
-            return obj;
-        },{})
-    },
     number: (value)=>{
         if (!value) return undefined;
         const parsed = parseInt(value);

@@ -1,12 +1,13 @@
 {
-  "name": "AWS-CodeCommit",
+  "id": "aws-codecommit",
+  "name": "AWS CodeCommit",
   "type": "executer",
   "imgUrl": "logo.png",
   "execProgram": "node",
   "main": "app.js",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Integration with AWS CodeCommit API.",
-  "category": "CI-CD",
+  "category": "CI/CD",
   "keywords": ["aws", "amazon", "code", "cloud", "cluster", "vm", "cli", "instance", "service"],
   "settings": [
     {
