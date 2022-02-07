@@ -13,7 +13,7 @@
     {
       "name": "accessKeyId",
       "viewName": "Access key",
-      "type": "string",
+      "type": "vault",
       "description": "The default Access Key ID to use to authenticate to AWS.",
       "placeholder": "AKIAIOSFODNN7EXAMPLE",
       "learnUrl": "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html#Using_CreateAccessKey"
@@ -43,7 +43,7 @@
         {
           "name": "accessKeyId",
           "viewName": "Access key",
-          "type": "string",
+          "type": "vault",
           "description": "The Access Key ID to use to authenticate to AWS for this request.",
           "placeholder": "AKIAIOSFODNN7EXAMPLE",
           "learnUrl": "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html#Using_CreateAccessKey"
@@ -61,7 +61,7 @@
           "viewName": "Region",
           "type": "autocomplete",
           "autocompleteType": "function",
-          "functionName": "listRegionsAuto",
+          "functionName": "listRegions",
           "description": "The AWS region to make this request on.",
           "placeholder": "us-east-2",
           "learnUrl": "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html"
@@ -99,7 +99,7 @@
         {
           "name": "accessKeyId",
           "viewName": "Access key",
-          "type": "string",
+          "type": "vault",
           "description": "The Access Key ID to use to authenticate to AWS for this request.",
           "placeholder": "AKIAIOSFODNN7EXAMPLE",
           "learnUrl": "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html#Using_CreateAccessKey"
@@ -117,7 +117,7 @@
           "viewName": "Region",
           "type": "autocomplete",
           "autocompleteType": "function",
-          "functionName": "listRegionsAuto",
+          "functionName": "listRegions",
           "description": "The AWS region to make this request on.",
           "placeholder": "us-east-2",
           "learnUrl": "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html"
@@ -155,7 +155,7 @@
         {
           "name": "accessKeyId",
           "viewName": "Access key",
-          "type": "string",
+          "type": "vault",
           "description": "The Access Key ID to use to authenticate to AWS for this request.",
           "placeholder": "AKIAIOSFODNN7EXAMPLE",
           "learnUrl": "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html#Using_CreateAccessKey"
@@ -173,7 +173,7 @@
           "viewName": "Region",
           "type": "autocomplete",
           "autocompleteType": "function",
-          "functionName": "listRegionsAuto",
+          "functionName": "listRegions",
           "description": "The AWS region to make this request on.",
           "placeholder": "us-east-2",
           "learnUrl": "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html"
@@ -230,7 +230,7 @@
         {
           "name": "accessKeyId",
           "viewName": "Access key",
-          "type": "string",
+          "type": "vault",
           "description": "The Access Key ID to use to authenticate to AWS for this request.",
           "placeholder": "AKIAIOSFODNN7EXAMPLE",
           "learnUrl": "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html#Using_CreateAccessKey"
@@ -248,7 +248,7 @@
           "viewName": "Region",
           "type": "autocomplete",
           "autocompleteType": "function",
-          "functionName": "listRegionsAuto",
+          "functionName": "listRegions",
           "description": "The AWS region to make this request on.",
           "placeholder": "us-east-2",
           "learnUrl": "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html"
@@ -280,7 +280,7 @@
         {
           "name": "accessKeyId",
           "viewName": "Access key",
-          "type": "string",
+          "type": "vault",
           "description": "The Access Key ID to use to authenticate to AWS for this request.",
           "placeholder": "AKIAIOSFODNN7EXAMPLE",
           "learnUrl": "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html#Using_CreateAccessKey"
@@ -298,7 +298,7 @@
           "viewName": "Region",
           "type": "autocomplete",
           "autocompleteType": "function",
-          "functionName": "listRegionsAuto",
+          "functionName": "listRegions",
           "description": "The AWS region to make this request on.",
           "placeholder": "us-east-2",
           "learnUrl": "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html"
@@ -312,7 +312,7 @@
         {
           "name": "accessKeyId",
           "viewName": "Access key",
-          "type": "string",
+          "type": "vault",
           "description": "The Access Key ID to use to authenticate to AWS for this request.",
           "placeholder": "AKIAIOSFODNN7EXAMPLE",
           "learnUrl": "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html#Using_CreateAccessKey"
@@ -330,7 +330,7 @@
           "viewName": "Region",
           "type": "autocomplete",
           "autocompleteType": "function",
-          "functionName": "listRegionsAuto",
+          "functionName": "listRegions",
           "description": "The AWS region to make this request on.",
           "placeholder": "us-east-2",
           "learnUrl": "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html"
@@ -353,7 +353,7 @@
         {
           "name": "accessKeyId",
           "viewName": "Access key",
-          "type": "string",
+          "type": "vault",
           "description": "The Access Key ID to use to authenticate to AWS for this request.",
           "placeholder": "AKIAIOSFODNN7EXAMPLE",
           "learnUrl": "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html#Using_CreateAccessKey"
@@ -371,7 +371,7 @@
           "viewName": "Region",
           "type": "autocomplete",
           "autocompleteType": "function",
-          "functionName": "listRegionsAuto",
+          "functionName": "listRegions",
           "description": "The AWS region to make this request on.",
           "placeholder": "us-east-2",
           "learnUrl": "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html"

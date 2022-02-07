@@ -7,6 +7,7 @@ module.exports = class CodeCommitService{
         const creds = {accessKeyId, secretAccessKey, region};
         this.codeCommit = new AWS.CodeCommit(creds);
         this.ec2 = new AWS.EC2(creds);
+        this.lightsail = new AWS.Lightsail(creds);
     }
 
     static from(params, settings){
@@ -16,7 +17,7 @@ module.exports = class CodeCommitService{
             region: parsers.autocomplete(params.region || settings.region)
         });
     }
-    
+
     async createRepository({name, description, tags}){
         if (!name) throw "Must provide repository name!";
         return this.codeCommit.createRepository({
@@ -25,7 +26,7 @@ module.exports = class CodeCommitService{
             tags
         }).promise();
     }
-    
+
     async createBranch({name, repository, commit}){
         if (!name || !repository || !commit) throw "Didn't provide one of the required parameters.";
         return this.codeCommit.createBranch({
@@ -34,7 +35,7 @@ module.exports = class CodeCommitService{
             repositoryName: repository
         }).promise();
     }
-    
+
     async createPullRequest({title, repository, sourceBranch, targetBranch, description}){
         if (!title || !repository || !sourceBranch || !targetBranch) throw "Didn't provide one of the required parameters.";
         return this.codeCommit.createPullRequest({
@@ -46,7 +47,7 @@ module.exports = class CodeCommitService{
             }]
         }).promise();
     }
-    
+
     async getPullRequest({repository, pullRequest}){
         if (!repository || !pullRequest) throw "Didn't provide one of the required parameters.";
         return this.codeCommit.getPullRequest({pullRequestId: pullRequest}).promise();
@@ -67,23 +68,23 @@ module.exports = class CodeCommitService{
         }
         return items;
     }
-    
-    
+
+
     async listRepos({nextToken, listAll}){
         if (listAll) return this.listAll("listRepositories", "repositories");
         return this.codeCommit.listRepositories({nextToken}).promise();
     }
-    
+
     async listBranches({repository, nextToken, listAll}){
         if (listAll) return this.listAll("listBranches", "branches", {repositoryName: repository});
         return this.codeCommit.listBranches({nextToken, repositoryName: repository}).promise();
     }
-    
+
     async listPullRequests({repository, nextToken, listAll}){
         if (listAll) return this.listAll("listPullRequests", "pullRequestIds", {repositoryName: repository});
         return this.codeCommit.listPullRequests({nextToken, repositoryName: repository}).promise();
     }
-    
+
     async listRegions(){
         return this.ec2.describeRegions({}).promise();
     }
