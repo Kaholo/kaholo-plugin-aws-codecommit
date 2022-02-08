@@ -1,6 +1,6 @@
 {
 	"name": "kaholo-plugin-aws-codecommit",
-	"version": "1.0.0",
+	"version": "1.0.2",
 	"description": "Kaholo plugin for integration with AWS CodeCommit API.",
 	"main": "app.js",
 	"scripts": {
