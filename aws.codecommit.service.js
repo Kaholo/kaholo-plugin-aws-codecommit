@@ -65,7 +65,7 @@ module.exports = class CodeCommitService {
     }
     return this.codeCommit.getPullRequest({ pullRequestId: pullRequest }).promise();
   }
-  
+
   async listAll(funcName, outputName, params = {}) {
     try {
       let result = await this.codeCommit[funcName](params);
