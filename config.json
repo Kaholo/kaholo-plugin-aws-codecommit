@@ -1,6 +1,6 @@
 {
-  "id": "aws-codecommit",
-  "name": "AWS CodeCommit",
+  "name": "aws-codecommit",
+  "viewName": "AWS CodeCommit",
   "type": "executer",
   "imgUrl": "logo.png",
   "execProgram": "node",
