@@ -5,7 +5,7 @@
   "imgUrl": "logo.png",
   "execProgram": "node",
   "main": "app.js",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Integration with AWS CodeCommit API.",
   "category": "CI/CD",
   "keywords": ["aws", "amazon", "code", "cloud", "cluster", "vm", "cli", "instance", "service"],
