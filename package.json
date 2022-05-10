@@ -1,6 +1,5 @@
 {
 	"name": "kaholo-plugin-aws-codecommit",
-	"version": "1.0.2",
 	"description": "Kaholo plugin for integration with AWS CodeCommit API.",
 	"main": "app.js",
 	"scripts": {
@@ -14,8 +13,8 @@
 		"kaholo-aws-plugin-library": "github:Kaholo/aws-plugin-library#v1.0.2"
 	},
 	"devDependencies": {
-		"eslint": "^8.13.0",
-		"eslint-config-airbnb-base": "^15.0.0",
-		"eslint-plugin-import": "^2.26.0"
+		"eslint": "8.13.0",
+		"eslint-config-airbnb-base": "15.0.0",
+		"eslint-plugin-import": "2.26.0"
 	}
 }
