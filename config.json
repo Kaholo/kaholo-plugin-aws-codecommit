@@ -72,7 +72,8 @@
           "type": "string",
           "description": "The name of the new repository to create.",
           "placeholder": "your-repo-name",
-          "learnUrl": "https://docs.aws.amazon.com/codecommit/latest/userguide/how-to-create-repository.html"
+          "learnUrl": "https://docs.aws.amazon.com/codecommit/latest/userguide/how-to-create-repository.html",
+          "required": true
         },
         {
           "name": "description",
@@ -128,7 +129,8 @@
           "type": "string",
           "description": "The name of the new branch to create.",
           "placeholder": "develop",
-          "learnUrl": "https://docs.aws.amazon.com/codecommit/latest/userguide/how-to-create-branch.html"
+          "learnUrl": "https://docs.aws.amazon.com/codecommit/latest/userguide/how-to-create-branch.html",
+          "required": true
         },
         {
           "name": "repository",
@@ -137,14 +139,16 @@
           "autocompleteType": "function",
           "functionName": "listReposAuto",
           "description": "Create the branch in the specified repository.",
-          "learnUrl": "https://docs.aws.amazon.com/codecommit/latest/userguide/how-to-create-repository.html"
+          "learnUrl": "https://docs.aws.amazon.com/codecommit/latest/userguide/how-to-create-repository.html",
+          "required": true
         },
         {
           "name": "commit",
           "viewName": "Head Commit SHA ID",
           "type": "string",
           "description": "The SHA ID of the commit the new branch will point to.",
-          "learnUrl": "https://docs.aws.amazon.com/codecommit/latest/userguide/how-to-create-commit.html"
+          "learnUrl": "https://docs.aws.amazon.com/codecommit/latest/userguide/how-to-create-commit.html",
+          "required": true
         }
       ]
     },
@@ -184,7 +188,8 @@
           "type": "string",
           "description": "The title of the new pull request to create.",
           "placeholder": "develop",
-          "learnUrl": "https://docs.aws.amazon.com/codecommit/latest/userguide/pull-requests.html"
+          "learnUrl": "https://docs.aws.amazon.com/codecommit/latest/userguide/pull-requests.html",
+          "required": true
         },
         {
           "name": "repository",
@@ -193,7 +198,8 @@
           "autocompleteType": "function",
           "functionName": "listReposAuto",
           "description": "Create the pull request in the specified repository.",
-          "learnUrl": "https://docs.aws.amazon.com/codecommit/latest/userguide/how-to-create-repository.html"
+          "learnUrl": "https://docs.aws.amazon.com/codecommit/latest/userguide/how-to-create-repository.html",
+          "required": true
         },
         {
           "name": "sourceBranch",
@@ -202,7 +208,8 @@
           "autocompleteType": "function",
           "functionName": "listBranchesAuto",
           "description": "The branch to request to pull/merge into the target branch.",
-          "learnUrl": "https://docs.aws.amazon.com/codecommit/latest/userguide/pull-requests.html"
+          "learnUrl": "https://docs.aws.amazon.com/codecommit/latest/userguide/pull-requests.html",
+          "required": true
         },
         {
           "name": "targetBranch",
@@ -211,7 +218,8 @@
           "autocompleteType": "function",
           "functionName": "listBranchesAuto",
           "description": "If pull request approved pull/merge the source branch with this branch.",
-          "learnUrl": "https://docs.aws.amazon.com/codecommit/latest/userguide/pull-requests.html"
+          "learnUrl": "https://docs.aws.amazon.com/codecommit/latest/userguide/pull-requests.html",
+          "required": true
         },
         {
           "name": "description",
@@ -260,7 +268,8 @@
           "autocompleteType": "function",
           "functionName": "listReposAuto",
           "description": "The repository the pull request belongs to.",
-          "learnUrl": "https://docs.aws.amazon.com/codecommit/latest/userguide/how-to-create-repository.html"
+          "learnUrl": "https://docs.aws.amazon.com/codecommit/latest/userguide/how-to-create-repository.html",
+          "required": true
         },
         {
           "name": "pullRequest",
@@ -269,7 +278,8 @@
           "autocompleteType": "function",
           "functionName": "listPullRequestsAuto",
           "description": "The pull request to return information about",
-          "learnUrl": "https://docs.aws.amazon.com/codecommit/latest/userguide/pull-requests.html"
+          "learnUrl": "https://docs.aws.amazon.com/codecommit/latest/userguide/pull-requests.html",
+          "required": true
         }
       ]
     },
@@ -342,7 +352,8 @@
           "autocompleteType": "function",
           "functionName": "listReposAuto",
           "description": "List branches of only the specified repository.",
-          "learnUrl": "https://docs.aws.amazon.com/codecommit/latest/userguide/how-to-create-repository.html"
+          "learnUrl": "https://docs.aws.amazon.com/codecommit/latest/userguide/how-to-create-repository.html",
+          "required": true
         }
       ]
     },
@@ -383,7 +394,8 @@
           "autocompleteType": "function",
           "functionName": "listReposAuto",
           "description": "List pull requests of only the specified repository.",
-          "learnUrl": "https://docs.aws.amazon.com/codecommit/latest/userguide/how-to-create-repository.html"
+          "learnUrl": "https://docs.aws.amazon.com/codecommit/latest/userguide/how-to-create-repository.html",
+          "required": true
         }
       ]
     }
