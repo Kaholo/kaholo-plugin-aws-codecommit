@@ -1,87 +1,65 @@
-const parsers = require("./parsers");
-const CodeCommitService = require("./aws.codecommit.service");
+const AWS = require("aws-sdk");
+const awsPluginLibrary = require("kaholo-aws-plugin-library");
+const payloadFunctions = require("./payload-functions");
 const autocomplete = require("./autocomplete");
+const { fetchRecursively } = require("./helpers");
 
-async function createRepository(action, settings) {
-  const { name, description, tags } = action.params;
-
-  const client = CodeCommitService.from(action.params, settings);
-  return client.createRepository({
-    name: parsers.string(name),
-    description: parsers.string(description),
-    tags: parsers.array(tags),
-  });
-}
-
-async function createBranch(action, settings) {
-  const { name, repository, commit } = action.params;
-
-  const client = CodeCommitService.from(action.params, settings);
-  return client.createBranch({
-    name: parsers.string(name),
-    repository: parsers.autocomplete(repository),
-    commit: parsers.string(commit),
-  });
-}
-
-async function createPullRequest(action, settings) {
-  const {
-    title, description, repository, sourceBranch, targetBranch,
-  } = action.params;
-
-  const client = CodeCommitService.from(action.params, settings);
-  return client.createPullRequest({
-    title: parsers.string(title),
-    repository: parsers.autocomplete(repository),
-    sourceBranch: parsers.autocomplete(sourceBranch),
-    targetBranch: parsers.autocomplete(targetBranch),
-    description: parsers.string(description),
-  });
-}
-
-async function getPullRequest(action, settings) {
-  const { repository, pullRequest } = action.params;
-
-  const client = CodeCommitService.from(action.params, settings);
-  return client.getPullRequest({
-    repository: parsers.autocomplete(repository),
-    pullRequest: parsers.autocomplete(pullRequest),
-  });
-}
-
-async function listRepos(action, settings) {
-  const client = CodeCommitService.from(action.params, settings);
-  return client.listRepos({ listAll: true });
-}
-
-async function listBranches(action, settings) {
-  const { repository } = action.params;
-
-  const client = CodeCommitService.from(action.params, settings);
-  return client.listBranches({
-    repository: parsers.autocomplete(repository),
-    listAll: true,
-  });
-}
-
-async function listPullRequests(action, settings) {
-  const { repository } = action.params;
-
-  const client = CodeCommitService.from(action.params, settings);
-  return client.listPullRequests({
-    repository: parsers.autocomplete(repository),
-    listAll: true,
-  });
-}
-
-module.exports = {
-  createRepository,
-  createBranch,
-  createPullRequest,
-  getPullRequest,
-  listRepos,
-  listBranches,
-  listPullRequests,
-  // Autocomplete Functions
-  ...autocomplete,
+const simpleAwsMethods = {
+  createRepository: awsPluginLibrary.generateAwsMethod("createRepository", payloadFunctions.prepareCreateRepositoryPayload),
+  createBranch: awsPluginLibrary.generateAwsMethod("createBranch", payloadFunctions.prepareCreateBranchPayload),
+  createPullRequest: awsPluginLibrary.generateAwsMethod("createPullRequest", payloadFunctions.prepareCreatePullRequestPayload),
+  getPullRequest: awsPluginLibrary.generateAwsMethod("getPullRequest", payloadFunctions.prepareGetPullRequestPayload),
 };
+
+async function listRepos(codeCommitClient) {
+  const repositories = await fetchRecursively(codeCommitClient, {
+    methodName: "listRepositories",
+    outputDataPath: "repositories",
+  }).catch((error) => {
+    throw new Error(`Failed to list repositories: ${error.message || JSON.stringify(error)}`);
+  });
+  return { repositories };
+}
+
+async function listBranches(codeCommitClient, params) {
+  const branches = await fetchRecursively(codeCommitClient, {
+    methodName: "listBranches",
+    outputDataPath: "branches",
+  }, {
+    repositoryName: params.repository,
+  }).catch((error) => {
+    throw new Error(`Failed to list branches: ${error.message || JSON.stringify(error)}`);
+  });
+  return { branches };
+}
+
+async function listPullRequests(codeCommitClient, params) {
+  const pullRequestIds = await fetchRecursively(codeCommitClient, {
+    methodName: "listPullRequests",
+    outputDataPath: "pullRequestIds",
+  }, {
+    repositoryName: params.repository,
+  }).catch((error) => {
+    throw new Error(`Failed to list pull requests: ${error.message || JSON.stringify(error)}`);
+  });
+  return { pullRequestIds };
+}
+
+module.exports = awsPluginLibrary.bootstrap(
+  AWS.CodeCommit,
+  {
+    ...simpleAwsMethods,
+    listRepos,
+    listBranches,
+    listPullRequests,
+  },
+  {
+    listRegions: awsPluginLibrary.autocomplete.listRegions,
+    ...autocomplete,
+  },
+  {
+    ACCESS_KEY: "accessKeyId",
+    SECRET_KEY: "secretAccessKey",
+    REGION: "region",
+  },
+);
