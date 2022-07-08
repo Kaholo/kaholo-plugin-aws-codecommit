@@ -5,16 +5,17 @@ function createAwsAutocompleteFunction(
   methodName,
   outputDataPath,
   [valuePath, labelPath] = [],
-  payloadBuilder = () => ({}),
+  buildPayload = () => ({}),
 ) {
   return async (query, params, codeCommitClient) => {
+    const payload = buildPayload ? buildPayload(params) : {};
     const fetchResult = await fetchRecursively(
       codeCommitClient,
       {
         methodName,
         outputDataPath,
       },
-      payloadBuilder(params),
+      payload,
     ).catch((error) => {
       throw new Error(`Failed to list ${outputDataPath.toLowerCase()}: ${error.message || JSON.stringify(error)}`);
     });
