@@ -5,7 +5,7 @@ function createAwsAutocompleteFunction(
   methodName,
   outputDataPath,
   [valuePath, labelPath] = [],
-  buildPayload = () => ({}),
+  buildPayload = null,
 ) {
   return async (query, params, codeCommitClient) => {
     const payload = buildPayload ? buildPayload(params) : {};
