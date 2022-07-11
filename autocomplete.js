@@ -5,12 +5,18 @@ function createAwsAutocompleteFunction(
   methodName,
   outputDataPath,
   [valuePath, labelPath] = [],
+  buildPayload = null,
 ) {
   return async (query, params, codeCommitClient) => {
-    const fetchResult = await fetchRecursively(codeCommitClient, {
-      methodName,
-      outputDataPath,
-    }).catch((error) => {
+    const payload = buildPayload !== null ? buildPayload(params) : {};
+    const fetchResult = await fetchRecursively(
+      codeCommitClient,
+      {
+        methodName,
+        outputDataPath,
+      },
+      payload,
+    ).catch((error) => {
       throw new Error(`Failed to list ${outputDataPath.toLowerCase()}: ${error.message || JSON.stringify(error)}`);
     });
 
@@ -28,7 +34,21 @@ function createAwsAutocompleteFunction(
 }
 
 module.exports = {
-  listReposAuto: createAwsAutocompleteFunction("listRepositories", "repositories", ["repositoryName"]),
-  listBranchesAuto: createAwsAutocompleteFunction("listBranches", "branches"),
-  listPullRequestsAuto: createAwsAutocompleteFunction("listPullRequests", "pullRequestIds"),
+  listReposAuto: createAwsAutocompleteFunction(
+    "listRepositories",
+    "repositories",
+    ["repositoryName"],
+  ),
+  listBranchesAuto: createAwsAutocompleteFunction(
+    "listBranches",
+    "branches",
+    [],
+    (params) => ({ repositoryName: params.repository }),
+  ),
+  listPullRequestsAuto: createAwsAutocompleteFunction(
+    "listPullRequests",
+    "pullRequestIds",
+    [],
+    (params) => ({ repositoryName: params.repository }),
+  ),
 };
