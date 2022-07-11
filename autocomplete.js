@@ -8,7 +8,7 @@ function createAwsAutocompleteFunction(
   buildPayload = null,
 ) {
   return async (query, params, codeCommitClient) => {
-    const payload = buildPayload ? buildPayload(params) : {};
+    const payload = buildPayload !== null ? buildPayload(params) : {};
     const fetchResult = await fetchRecursively(
       codeCommitClient,
       {
