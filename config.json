@@ -8,31 +8,35 @@
   "version": "1.1.0",
   "description": "Integration with AWS CodeCommit API.",
   "category": "CI/CD",
-  "keywords": ["aws", "amazon", "code", "cloud", "cluster", "vm", "cli", "instance", "service"],
+  "keywords": ["aws", "amazon", "code", "cloud", "git", "source", "versioning", "commit", "branch", "repository", "push", "pull"],
+  "auth": {
+    "authId": "awsAccount",
+    "params": [
+      {
+        "name": "AWS_ACCESS_KEY_ID",
+        "viewName": "Access Key ID",
+        "type": "vault",
+        "description": "The default AWS Access Key ID to use for authentication.",
+        "placeholder": "AKIAIOSFODNN7EXAMPLE",
+        "learnUrl": "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html#Using_CreateAccessKey"
+      },
+      {
+        "name": "AWS_SECRET_ACCESS_KEY",
+        "viewName": "Access Key Secret",
+        "type": "vault",
+        "description": "The default AWS Access Key secret to use for authentication.",
+        "placeholder": "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY",
+        "learnUrl": "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html#Using_CreateAccessKey"
+      }
+    ]
+  },
   "settings": [
     {
-      "name": "accessKeyId",
-      "viewName": "Access key",
-      "type": "vault",
-      "description": "The default Access Key ID to use to authenticate to AWS.",
-      "placeholder": "AKIAIOSFODNN7EXAMPLE",
-      "learnUrl": "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html#Using_CreateAccessKey"
-    },
-    {
-      "name": "secretAccessKey",
-      "viewName": "Secret key",
-      "type": "vault",
-      "description": "The default Access Key Secret to use to authenticate to AWS.",
-      "placeholder": "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY",
-      "learnUrl": "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html#Using_CreateAccessKey"
-    },
-    {
-      "name": "region",
+      "name": "REGION",
       "viewName": "Region",
       "type": "string",
-      "description": "The default AWS region to make requests on.",
-      "placeholder": "us-east-2",
-      "learnUrl": "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html"
+      "description": "The ID of the default region to make requests on.",
+      "learnUrl": "https://docs.aws.amazon.com/general/latest/gr/s3.html"
     }
   ],
   "methods": [
@@ -41,30 +45,14 @@
       "viewName": "Create Repository",
       "params": [
         {
-          "name": "accessKeyId",
-          "viewName": "Access key",
-          "type": "vault",
-          "description": "The Access Key ID to use to authenticate to AWS for this request.",
-          "placeholder": "AKIAIOSFODNN7EXAMPLE",
-          "learnUrl": "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html#Using_CreateAccessKey"
-        },
-        {
-          "name": "secretAccessKey",
-          "viewName": "Secret key",
-          "type": "vault",
-          "description": "The Access Key Secret to use to authenticate to AWS for this request.",
-          "placeholder": "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY",
-          "learnUrl": "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html#Using_CreateAccessKey"
-        },
-        {
-          "name": "region",
+          "name": "REGION",
           "viewName": "Region",
           "type": "autocomplete",
           "autocompleteType": "function",
           "functionName": "listRegions",
-          "description": "The AWS region to make this request on.",
+          "description": "The ID of the default region to make requests on.",
           "placeholder": "us-east-2",
-          "learnUrl": "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html"
+          "learnUrl": "https://docs.aws.amazon.com/general/latest/gr/s3.html"
         },
         {
           "name": "name",
@@ -99,30 +87,14 @@
       "viewName": "Create Branch",
       "params": [
         {
-          "name": "accessKeyId",
-          "viewName": "Access key",
-          "type": "vault",
-          "description": "The Access Key ID to use to authenticate to AWS for this request.",
-          "placeholder": "AKIAIOSFODNN7EXAMPLE",
-          "learnUrl": "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html#Using_CreateAccessKey"
-        },
-        {
-          "name": "secretAccessKey",
-          "viewName": "Secret key",
-          "type": "vault",
-          "description": "The Access Key Secret to use to authenticate to AWS for this request.",
-          "placeholder": "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY",
-          "learnUrl": "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html#Using_CreateAccessKey"
-        },
-        {
-          "name": "region",
+          "name": "REGION",
           "viewName": "Region",
           "type": "autocomplete",
           "autocompleteType": "function",
           "functionName": "listRegions",
-          "description": "The AWS region to make this request on.",
+          "description": "The ID of the default region to make requests on.",
           "placeholder": "us-east-2",
-          "learnUrl": "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html"
+          "learnUrl": "https://docs.aws.amazon.com/general/latest/gr/s3.html"
         },
         {
           "name": "name",
@@ -158,30 +130,14 @@
       "viewName": "Create Pull Request",
       "params": [
         {
-          "name": "accessKeyId",
-          "viewName": "Access key",
-          "type": "vault",
-          "description": "The Access Key ID to use to authenticate to AWS for this request.",
-          "placeholder": "AKIAIOSFODNN7EXAMPLE",
-          "learnUrl": "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html#Using_CreateAccessKey"
-        },
-        {
-          "name": "secretAccessKey",
-          "viewName": "Secret key",
-          "type": "vault",
-          "description": "The Access Key Secret to use to authenticate to AWS for this request.",
-          "placeholder": "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY",
-          "learnUrl": "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html#Using_CreateAccessKey"
-        },
-        {
-          "name": "region",
+          "name": "REGION",
           "viewName": "Region",
           "type": "autocomplete",
           "autocompleteType": "function",
           "functionName": "listRegions",
-          "description": "The AWS region to make this request on.",
+          "description": "The ID of the default region to make requests on.",
           "placeholder": "us-east-2",
-          "learnUrl": "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html"
+          "learnUrl": "https://docs.aws.amazon.com/general/latest/gr/s3.html"
         },
         {
           "name": "title",
@@ -237,30 +193,14 @@
       "viewName": "Get Pull Request",
       "params": [
         {
-          "name": "accessKeyId",
-          "viewName": "Access key",
-          "type": "vault",
-          "description": "The Access Key ID to use to authenticate to AWS for this request.",
-          "placeholder": "AKIAIOSFODNN7EXAMPLE",
-          "learnUrl": "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html#Using_CreateAccessKey"
-        },
-        {
-          "name": "secretAccessKey",
-          "viewName": "Secret key",
-          "type": "vault",
-          "description": "The Access Key Secret to use to authenticate to AWS for this request.",
-          "placeholder": "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY",
-          "learnUrl": "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html#Using_CreateAccessKey"
-        },
-        {
-          "name": "region",
+          "name": "REGION",
           "viewName": "Region",
           "type": "autocomplete",
           "autocompleteType": "function",
           "functionName": "listRegions",
-          "description": "The AWS region to make this request on.",
+          "description": "The ID of the default region to make requests on.",
           "placeholder": "us-east-2",
-          "learnUrl": "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html"
+          "learnUrl": "https://docs.aws.amazon.com/general/latest/gr/s3.html"
         },
         {
           "name": "repository",
@@ -289,30 +229,14 @@
       "viewName": "List Repositories",
       "params": [
         {
-          "name": "accessKeyId",
-          "viewName": "Access key",
-          "type": "vault",
-          "description": "The Access Key ID to use to authenticate to AWS for this request.",
-          "placeholder": "AKIAIOSFODNN7EXAMPLE",
-          "learnUrl": "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html#Using_CreateAccessKey"
-        },
-        {
-          "name": "secretAccessKey",
-          "viewName": "Secret key",
-          "type": "vault",
-          "description": "The Access Key Secret to use to authenticate to AWS for this request.",
-          "placeholder": "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY",
-          "learnUrl": "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html#Using_CreateAccessKey"
-        },
-        {
-          "name": "region",
+          "name": "REGION",
           "viewName": "Region",
           "type": "autocomplete",
           "autocompleteType": "function",
           "functionName": "listRegions",
-          "description": "The AWS region to make this request on.",
+          "description": "The ID of the default region to make requests on.",
           "placeholder": "us-east-2",
-          "learnUrl": "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html"
+          "learnUrl": "https://docs.aws.amazon.com/general/latest/gr/s3.html"
         }
       ]
     },
@@ -321,30 +245,14 @@
       "viewName": "List Branches",
       "params": [
         {
-          "name": "accessKeyId",
-          "viewName": "Access key",
-          "type": "vault",
-          "description": "The Access Key ID to use to authenticate to AWS for this request.",
-          "placeholder": "AKIAIOSFODNN7EXAMPLE",
-          "learnUrl": "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html#Using_CreateAccessKey"
-        },
-        {
-          "name": "secretAccessKey",
-          "viewName": "Secret key",
-          "type": "vault",
-          "description": "The Access Key Secret to use to authenticate to AWS for this request.",
-          "placeholder": "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY",
-          "learnUrl": "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html#Using_CreateAccessKey"
-        },
-        {
-          "name": "region",
+          "name": "REGION",
           "viewName": "Region",
           "type": "autocomplete",
           "autocompleteType": "function",
           "functionName": "listRegions",
-          "description": "The AWS region to make this request on.",
+          "description": "The ID of the default region to make requests on.",
           "placeholder": "us-east-2",
-          "learnUrl": "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html"
+          "learnUrl": "https://docs.aws.amazon.com/general/latest/gr/s3.html"
         },
         {
           "name": "repository",
@@ -363,30 +271,14 @@
       "viewName": "List Pull Requests",
       "params": [
         {
-          "name": "accessKeyId",
-          "viewName": "Access key",
-          "type": "vault",
-          "description": "The Access Key ID to use to authenticate to AWS for this request.",
-          "placeholder": "AKIAIOSFODNN7EXAMPLE",
-          "learnUrl": "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html#Using_CreateAccessKey"
-        },
-        {
-          "name": "secretAccessKey",
-          "viewName": "Secret key",
-          "type": "vault",
-          "description": "The Access Key Secret to use to authenticate to AWS for this request.",
-          "placeholder": "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY",
-          "learnUrl": "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html#Using_CreateAccessKey"
-        },
-        {
-          "name": "region",
+          "name": "REGION",
           "viewName": "Region",
           "type": "autocomplete",
           "autocompleteType": "function",
           "functionName": "listRegions",
-          "description": "The AWS region to make this request on.",
+          "description": "The ID of the default region to make requests on.",
           "placeholder": "us-east-2",
-          "learnUrl": "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html"
+          "learnUrl": "https://docs.aws.amazon.com/general/latest/gr/s3.html"
         },
         {
           "name": "repository",
