@@ -88,7 +88,7 @@
           "viewName": "Tags",
           "type": "text",
           "description": "Specify tags one \"key=value\" pair per line. Value is optional.",
-          "placeholder": "DEV_APPS\nKAHOLO_PLUGINS",
+          "placeholder": "devteam=alpha",
           "learnUrl": "https://docs.aws.amazon.com/codecommit/latest/userguide/how-to-tag-repository.html",
           "parserType": "array"
         }
