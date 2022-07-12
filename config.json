@@ -87,9 +87,10 @@
           "name": "tags",
           "viewName": "Tags",
           "type": "text",
-          "description": "If specified, tag the repository with the tags specified. Each tag should just be a key with no value. To enter multiple values separate each with a new line. Also accepts getting an array of strings from code.",
-          "placeholder": "DEV_APPS\nKAHOLO_PLUGINS",
-          "learnUrl": "https://docs.aws.amazon.com/codecommit/latest/userguide/how-to-tag-repository.html"
+          "description": "Specify tags one \"key=value\" pair per line. Value is optional.",
+          "placeholder": "devteam=alpha",
+          "learnUrl": "https://docs.aws.amazon.com/codecommit/latest/userguide/how-to-tag-repository.html",
+          "parserType": "array"
         }
       ]
     },
