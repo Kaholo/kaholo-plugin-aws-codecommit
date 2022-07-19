@@ -58,8 +58,8 @@ module.exports = awsPluginLibrary.bootstrap(
     ...autocomplete,
   },
   {
-    ACCESS_KEY: "accessKeyId",
-    SECRET_KEY: "secretAccessKey",
-    REGION: "region",
+    ACCESS_KEY: "awsAccessKeyId",
+    SECRET_KEY: "awsSecretAccessKey",
+    REGION: "awsRegion",
   },
 );

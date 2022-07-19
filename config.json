@@ -13,7 +13,7 @@
     "authId": "awsAccount",
     "params": [
       {
-        "name": "AWS_ACCESS_KEY_ID",
+        "name": "awsAccessKeyId",
         "viewName": "Access Key ID",
         "type": "vault",
         "description": "The default AWS Access Key ID to use for authentication.",
@@ -21,7 +21,7 @@
         "learnUrl": "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html#Using_CreateAccessKey"
       },
       {
-        "name": "AWS_SECRET_ACCESS_KEY",
+        "name": "awsSecretAccessKey",
         "viewName": "Access Key Secret",
         "type": "vault",
         "description": "The default AWS Access Key secret to use for authentication.",
@@ -32,7 +32,7 @@
   },
   "settings": [
     {
-      "name": "REGION",
+      "name": "awsRegion",
       "viewName": "Region",
       "type": "string",
       "description": "The ID of the default region to make requests on.",
@@ -45,7 +45,7 @@
       "viewName": "Create Repository",
       "params": [
         {
-          "name": "REGION",
+          "name": "awsRegion",
           "viewName": "Region",
           "type": "autocomplete",
           "autocompleteType": "function",
@@ -87,7 +87,7 @@
       "viewName": "Create Branch",
       "params": [
         {
-          "name": "REGION",
+          "name": "awsRegion",
           "viewName": "Region",
           "type": "autocomplete",
           "autocompleteType": "function",
@@ -130,7 +130,7 @@
       "viewName": "Create Pull Request",
       "params": [
         {
-          "name": "REGION",
+          "name": "awsRegion",
           "viewName": "Region",
           "type": "autocomplete",
           "autocompleteType": "function",
@@ -193,7 +193,7 @@
       "viewName": "Get Pull Request",
       "params": [
         {
-          "name": "REGION",
+          "name": "awsRegion",
           "viewName": "Region",
           "type": "autocomplete",
           "autocompleteType": "function",
@@ -229,7 +229,7 @@
       "viewName": "List Repositories",
       "params": [
         {
-          "name": "REGION",
+          "name": "awsRegion",
           "viewName": "Region",
           "type": "autocomplete",
           "autocompleteType": "function",
@@ -245,7 +245,7 @@
       "viewName": "List Branches",
       "params": [
         {
-          "name": "REGION",
+          "name": "awsRegion",
           "viewName": "Region",
           "type": "autocomplete",
           "autocompleteType": "function",
@@ -271,7 +271,7 @@
       "viewName": "List Pull Requests",
       "params": [
         {
-          "name": "REGION",
+          "name": "awsRegion",
           "viewName": "Region",
           "type": "autocomplete",
           "autocompleteType": "function",
