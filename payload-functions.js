@@ -1,9 +1,13 @@
 function prepareCreateRepositoryPayload(params) {
-  const tags = Object.fromEntries(
-    params.tags.map((tag) => {
-      const [key, ...rest] = tag.split("=");
-      return [key, rest.join("=")];
-    }),
+  const tags = (
+    params.tags
+      ? Object.fromEntries(
+        params.tags.map((tag) => {
+          const [key, ...rest] = tag.split("=");
+          return [key, rest.join("=")];
+        }),
+      )
+      : {}
   );
 
   return {
