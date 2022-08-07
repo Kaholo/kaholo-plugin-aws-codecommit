@@ -1,126 +1,83 @@
-# kaholo-plugin-aws-codecommit
-Kaholo plugin for integration with AWS CodeCommit API.
+# Kaholo AWS CodeCommit plugin
+This plugin extends Kaholo to enable use of [AWS CodeCommit](https://aws.amazon.com/codecommit/). AWS CodeCommit is a secure, highly scalable, managed source control service that hosts private Git repositories.
 
-##  Settings
-1. Access key (String) **Required if not in action** - The default Access Key ID to use to authenticate to AWS.
-    [Learn More](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html#Using_CreateAccessKey)
-2. Secret key (Vault) **Required if not in action** - The default Access Key Secret to use to authenticate to AWS.
-    [Learn More](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html#Using_CreateAccessKey)
-3. Region (String) **Required if not in action** - The default AWS region to make requests on.
-    [Learn More](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html)
+The CodeCommit plugin is used to list, create and manage repositories, branches, and pull requests. Standard git operations such as clone, commit, and push are done using git, your favorite git-compatible tools, or the [Kaholo Git Plugin](https://github.com/Kaholo/kaholo-plugin-git/blob/master/README.md). For more information about how to use CodeCommit with git or the git plugin, please see the AWS documentation [here](https://docs.aws.amazon.com/codecommit/latest/userguide/getting-started.html). 
 
-## How To Integrate With The Git Plugin
-In order to be able to use the Git plugin in Kaholo on repositories created from AWS CodeCommit follow these steps:
-* Generate an SSH RSA key, and save both private and public keys for later.
-* In [AWS IAM users tab](https://console.aws.amazon.com/iam/home#/users) select a user to use to authenticate to CodeCommit with.
-* Make sure the user has the specified permission policy: **AWSCodeCommitPowerUser**
-* In the 'Security Credentials' tab go to 'SSH keys for AWS CodeCommit' and then select 'Upload SSH public key' than paste your public SSH key. Save the ID of the uploaded public SSH key for later.
-* Save the private ssh key in the Kaholo vault to use with the git plugin.
-* When using the git plugin make sure to provide the private key from the vault, abd provide the 'Repository' parameter in the following format: ssh://**Your-SSH-Key-ID@**git-codecommit.us-east-2.amazonaws.com/v1/repos/MyDemoRepo.
+## Access and Authentication
+To use the plugin, an AWS account is required, including an IAM user with Access Keys and associated groups and policies that grant access to use AWS CodeCommit. AWS Access Keys come in pairs, such as the example below.
+
+    Access Key: AKIA3LQSDLGKHSTJ6PIQI
+    Secret Key: uOq2uEoy5/E5KSLDKGskd8rWD0TfbZZLi++L7++gl
+
+To set up an IAM user or get Access Keys, please contact your AWS system administrator. [Learn More](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html#Using_CreateAccessKey)
+
+## Plugin Account
+This plugin makes use of Kaholo Accounts. Accounts define a set of parameters that are grouped and applied together as one at the action level. An account set as the default account is applied automatically when creating a new action so the user can configure the account once and thereafter easily reuse it, rather than having to specify the same details again for each action. In the case of AWS, accounts are shared across several AWS plugins. For example if you have already defined an account for use with the AWS EC2 plugin or the AWS CLI plugin, there will be no need to redefine the account for use with AWS CodeCommit plugin.
+
+The Kaholo Account used with AWS CodeCommit contains two parameters:
+
+* Access key - The Access Key ID to use to authenticate to AWS
+    
+* Secret key (Vault) - The Secret Key to use to authenticate to AWS
+
+##  Plugin Settings
+Plugin settings act as default parameter values. If configured in plugin settings, the action parameters may be left unconfigured. Action parameters configured anyway over-ride the plugin-level settings for that Action. This plugin has only one Setting:
+
+* Default Region - The default AWS region where your CodeCommit repositories are located. For example, `ap-southeast-1` if your CodeCommit repositories are in Amazon's Singapore datacenter. [Learn More](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html)
 
 ## Method: Create Repository
-Create a new repository.
+Creates a new CodeCommit repository.
 
 ## Parameters
-1. Access key (String) **Required if not in settings** - The Access Key ID to use to authenticate to AWS for this request.
-    [Learn More](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html#Using_CreateAccessKey)
-2. Secret key (Vault) **Required if not in settings** - The Access Key Secret to use to authenticate to AWS for this request.
-    [Learn More](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html#Using_CreateAccessKey)
-3. Region (Autocomplete) **Required if not in settings** - The AWS region to make this request on.
-    [Learn More](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html)
-4. Name (String) **Required** - The name of the new repository to create.
-    [Learn More](https://docs.aws.amazon.com/codecommit/latest/userguide/how-to-create-repository.html)
-5. Description (Text) **Optional** - A description of the new repository to create.
-    [Learn More](https://docs.aws.amazon.com/codecommit/latest/userguide/how-to-create-repository.html)
-6. Tags (Text) **Optional** - If specified, tag the repository with the tags specified. Each tag should either be in the format of Key=Value or just Key. To enter multiple values separate each with a new line. Also accepts getting an array of objects in the form of { Key, Value } or { Key }.
-    [Learn More](https://docs.aws.amazon.com/codecommit/latest/userguide/how-to-tag-repository.html)
+* Region (Autocomplete) - Select the AWS region where the repository will be created.
+* Name - The name of the new repository to create
+* Description - A description for the new repository
+* Tags - If specified, tag the repository with the tags specified. Each tag should either be in the format of Key=Value or just Key. Enter multiple tags one per line.
 
 ## Method: Create Branch
-Create a new branch inside the specified repostiry using a specified commit SHA ID.
+Creates a new branch inside the specified repository using a specified commit SHA ID.
 
 ## Parameters
-1. Access key (String) **Required if not in settings** - The Access Key ID to use to authenticate to AWS for this request.
-    [Learn More](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html#Using_CreateAccessKey)
-2. Secret key (Vault) **Required if not in settings** - The Access Key Secret to use to authenticate to AWS for this request.
-    [Learn More](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html#Using_CreateAccessKey)
-3. Region (Autocomplete) **Required if not in settings** - The AWS region to make this request on.
-    [Learn More](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html)
-4. Name (String) **Required** - The name of the new branch to create.
-    [Learn More](https://docs.aws.amazon.com/codecommit/latest/userguide/how-to-create-branch.html)
-5. Repository (Autocomplete) **Required** - Create the branch in the specified repository.
-    [Learn More](https://docs.aws.amazon.com/codecommit/latest/userguide/how-to-create-repository.html)
-6. Head Commit (Autocomplete) **Required** - The commit the new branch will point to.
-    [Learn More](https://docs.aws.amazon.com/codecommit/latest/userguide/how-to-create-commit.html)
+* Region (Autocomplete) - Select the AWS region where the repository exists.
+* Name - The name of the new branch to create
+* Repository (Autocomplete) - Select the repository in which the branch will be created.
+* Head Commit - The SHA ID of the commit from which the new branch is created, e.g. `e15412c61810e2192b90dfb9d7deaeaa9aa7d504`
 
 ## Method: Create Pull Request
 Create a new pull request on the specified repository and branches.
 
 ## Parameters
-1. Access key (String) **Required if not in settings** - The Access Key ID to use to authenticate to AWS for this request.
-    [Learn More](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html#Using_CreateAccessKey)
-2. Secret key (Vault) **Required if not in settings** - The Access Key Secret to use to authenticate to AWS for this request.
-    [Learn More](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html#Using_CreateAccessKey)
-3. Region (Autocomplete) **Required if not in settings** - The AWS region to make this request on.
-    [Learn More](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html)
-4. Title (String) **Optional** - The title of the new pull request to create.
-    [Learn More](https://docs.aws.amazon.com/codecommit/latest/userguide/pull-requests.html)
-5. Repository (Autocomplete) **Required** - Create the pull request in the specified repository.
-    [Learn More](https://docs.aws.amazon.com/codecommit/latest/userguide/how-to-create-repository.html)
-6. Source Branch (Autocomplete) **Required** - The branch to request to pull/merge into the target branch.
-    [Learn More](https://docs.aws.amazon.com/codecommit/latest/userguide/pull-requests.html)
-7. Target Branch (Autocomplete) **Required** - If pull request approved pull/merge the source branch with this branch.
-    [Learn More](https://docs.aws.amazon.com/codecommit/latest/userguide/pull-requests.html)
-8. Description (Text) **Optional** - Attach the specified description to the pull request.
-    [Learn More](https://docs.aws.amazon.com/codecommit/latest/userguide/pull-requests.html)
+* Region (Autocomplete) - Select the AWS region where the repository exists.
+* Title - The title of the new pull request to create
+* Repository (Autocomplete) - Select the repository in which the pull request will be created.
+* Source Branch (Autocomplete) - Select the branch from which to pull changes.
+* Target Branch (Autocomplete) - Select the branch into which the merge is requested.
+* Description - A description of the nature of the pull request
 
 ## Method: Get Pull Request
-Get information about the specified pull request.
+Get information about a specific pull request.
 
 ## Parameters
-1. Access key (String) **Required if not in settings** - The Access Key ID to use to authenticate to AWS for this request.
-    [Learn More](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html#Using_CreateAccessKey)
-2. Secret key (Vault) **Required if not in settings** - The Access Key Secret to use to authenticate to AWS for this request.
-    [Learn More](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html#Using_CreateAccessKey)
-3. Region (Autocomplete) **Required if not in settings** - The AWS region to make this request on.
-    [Learn More](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html)
-4. Repository (Autocomplete) **Required** - The repository the pull request belongs to.
-    [Learn More](https://docs.aws.amazon.com/codecommit/latest/userguide/how-to-create-repository.html)
-5. Pull Request (Autocomplete) **Required** - The pull request to return information about
-    [Learn More](https://docs.aws.amazon.com/codecommit/latest/userguide/pull-requests.html)
+* Region (Autocomplete) - Select the AWS region where the repository exists.
+* Repository (Autocomplete) - Select the repository in which the pull request exists.
+* Pull Request (Autocomplete) - Select the title of the pull request to retrieve details.
 
 ## Method: List Repositories
-List all repositories connected to your AWS IAM user.
+Lists all repositories connected to your AWS IAM user in the specified region.
 
 ## Parameters
-1. Access key (String) **Required if not in settings** - The Access Key ID to use to authenticate to AWS for this request.
-    [Learn More](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html#Using_CreateAccessKey)
-2. Secret key (Vault) **Required if not in settings** - The Access Key Secret to use to authenticate to AWS for this request.
-    [Learn More](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html#Using_CreateAccessKey)
-3. Region (Autocomplete) **Required if not in settings** - The AWS region to make this request on.
-    [Learn More](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html)
+* Region (Autocomplete) - Select the AWS region where repositories are to be listed.
 
 ## Method: List Branches
-List all branches of the specified repository.
+Lists all branches of the specified repository.
 
 ## Parameters
-1. Access key (String) **Required if not in settings** - The Access Key ID to use to authenticate to AWS for this request.
-    [Learn More](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html#Using_CreateAccessKey)
-2. Secret key (Vault) **Required if not in settings** - The Access Key Secret to use to authenticate to AWS for this request.
-    [Learn More](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html#Using_CreateAccessKey)
-3. Region (Autocomplete) **Required if not in settings** - The AWS region to make this request on.
-    [Learn More](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html)
-4. Repository (Autocomplete) **Required** - List branches of only the specified repository.
-    [Learn More](https://docs.aws.amazon.com/codecommit/latest/userguide/how-to-create-repository.html)
+* Region (Autocomplete) - Select the AWS region where the repository exists.
+* Repository (Autocomplete) - Select the repository who's branches are to be listed.
 
 ## Method: List Pull Requests
 List all pull requests in the specified repository.
 
 ## Parameters
-1. Access key (String) **Required if not in settings** - The Access Key ID to use to authenticate to AWS for this request.
-    [Learn More](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html#Using_CreateAccessKey)
-2. Secret key (Vault) **Required if not in settings** - The Access Key Secret to use to authenticate to AWS for this request.
-    [Learn More](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html#Using_CreateAccessKey)
-3. Region (Autocomplete) **Required if not in settings** - The AWS region to make this request on.
-    [Learn More](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html)
-4. Repository (Autocomplete) **Required** - List pull requests of only the specified repository.
-    [Learn More](https://docs.aws.amazon.com/codecommit/latest/userguide/how-to-create-repository.html)
+* Region (Autocomplete) - Select the AWS region where the repository exists.
+* Repository (Autocomplete) - Select the repository who's pull requests are to be listed.
