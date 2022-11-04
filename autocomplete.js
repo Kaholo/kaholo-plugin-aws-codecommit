@@ -1,28 +1,16 @@
 const awsPluginLibrary = require("@kaholo/aws-plugin-library");
-const { fetchRecursively } = require("./helpers");
 
-function createAwsAutocompleteFunction(
-  methodName,
-  outputDataPath,
-  [valuePath, labelPath] = [],
-  buildPayload = null,
-) {
+const codeCommitService = require("./code-commit-service");
+
+function createAwsAutocompleteFunction(codeCommitServiceMethodName, { buildId, buildLabel } = {}) {
   return async (query, params, codeCommitClient) => {
-    const payload = buildPayload !== null ? buildPayload(params) : {};
-    const fetchResult = await fetchRecursively(
-      codeCommitClient,
-      {
-        methodName,
-        outputDataPath,
-      },
-      payload,
-    ).catch((error) => {
-      throw new Error(`Failed to list ${outputDataPath.toLowerCase()}: ${error.message || JSON.stringify(error)}`);
-    });
+    const fetchedData = (
+      await codeCommitService[codeCommitServiceMethodName](codeCommitClient, params)
+    );
 
-    const mappedAutocompleteItems = fetchResult.map((fetchedItem) => {
-      const autocompleteValue = valuePath ? fetchedItem[valuePath] : fetchedItem;
-      const autocompleteLabel = labelPath ? fetchedItem[labelPath] : autocompleteValue;
+    const mappedAutocompleteItems = fetchedData.map((fetchedItem) => {
+      const autocompleteValue = buildId ? buildId(fetchedItem) : fetchedItem;
+      const autocompleteLabel = buildLabel ? buildLabel(fetchedItem) : autocompleteValue;
       return awsPluginLibrary.autocomplete.toAutocompleteItemFromPrimitive(
         autocompleteValue,
         autocompleteLabel,
@@ -35,20 +23,19 @@ function createAwsAutocompleteFunction(
 
 module.exports = {
   listReposAuto: createAwsAutocompleteFunction(
-    "listRepositories",
-    "repositories",
-    ["repositoryName"],
+    "listRepos",
+    {
+      buildId: ({ repositoryName }) => repositoryName,
+    },
   ),
   listBranchesAuto: createAwsAutocompleteFunction(
     "listBranches",
-    "branches",
-    [],
-    (params) => ({ repositoryName: params.repository }),
   ),
   listPullRequestsAuto: createAwsAutocompleteFunction(
     "listPullRequests",
-    "pullRequestIds",
-    [],
-    (params) => ({ repositoryName: params.repository }),
+    {
+      buildId: ({ pullRequestId }) => pullRequestId,
+      buildLabel: ({ pullRequestId, title }) => `${pullRequestId}: ${title}`,
+    },
   ),
 };
